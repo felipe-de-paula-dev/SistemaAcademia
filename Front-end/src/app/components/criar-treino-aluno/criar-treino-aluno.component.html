@@ -1,0 +1,49 @@
+<div class="absolute top-0 left-0 bg-black/50 h-screen w-screen">
+  <div
+    class="w-[400px] p-4 bg-white rounded-xl shadow space-y-4 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+  >
+    <div class="flex w-full justify-between">
+      <p
+        class="font-semibold text-xl ml-2 hover:text-red-500 transition-all hover:cursor-pointer"
+        (click)="fecharModal()"
+      >
+        X
+      </p>
+      <h2 class="text-xl font-semibold text-center text-gray-700">
+        Novo Treino
+      </h2>
+      <p class="font-semibold text-xl opacity-0">X</p>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <input
+        type="text"
+        placeholder="Nome do Treino"
+        class="border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [(ngModel)]="Treino.nomeTreino"
+      />
+      <input
+        type="number"
+        min="1"
+        placeholder="Quantidade de Dias"
+        class="border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [(ngModel)]="Treino.qtdeDias"
+      />
+      <input
+        type="number"
+        min="1"
+        placeholder="Quantidade de Exercícios por Dia"
+        class="border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [(ngModel)]="Treino.qtdeExercicios"
+      />
+    </div>
+
+    <button
+      (click)="criarTreino()"
+      class="w-full bg-blue-600 text-white py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+      (click)="postTreino()"
+    >
+      Criar
+    </button>
+  </div>
+</div>

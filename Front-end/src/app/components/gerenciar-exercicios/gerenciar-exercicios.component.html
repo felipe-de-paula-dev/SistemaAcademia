@@ -1,0 +1,62 @@
+<div class="w-[80%] mx-auto mt-10 p-6 bg-white rounded-xl space-y-4">
+  <h2 class="text-2xl font-bold text-center text-gray-800">
+    Adicionar Exercícios
+  </h2>
+
+  <h2
+    class="font-semibold text-sm text-blue-500 hover:cursor-pointer"
+    (click)="fecharModel()"
+  >
+    < Voltar
+  </h2>
+
+  <div class="w-full flex flex-col md:flex-row justify-between gap-6">
+    <div class="w-[50] md:w-1/2 space-y-4">
+      <input
+        [(ngModel)]="nome"
+        placeholder="Nome do treino"
+        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <input
+        [(ngModel)]="urlvideo"
+        placeholder="URL do vídeo"
+        class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        (click)="adicionarTreino()"
+        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+      >
+        Adicionar
+      </button>
+    </div>
+
+    <div *ngIf="treinos.length > 0" class="w-full">
+      <h3 class="text-xl font-semibold text-gray-700">
+        Exercícios cadastrados
+      </h3>
+      <ul class="mt-4 space-y-3">
+        <li
+          *ngFor="let treino of treinos; let i = index"
+          class="flex justify-between items-center bg-gray-50 p-3 rounded-lg shadow-sm border-b"
+        >
+          <div>
+            <p class="font-medium text-gray-800">{{ treino.nome }}</p>
+            <a
+              [href]="treino.urlvideo"
+              target="_blank"
+              class="text-blue-600 text-sm hover:underline"
+            >
+              Ver vídeo
+            </a>
+          </div>
+          <button
+            (click)="removerTreino(treino.id)"
+            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+          >
+            Remover
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

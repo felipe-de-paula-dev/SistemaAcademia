@@ -1,0 +1,75 @@
+<div
+  class="max-h-[500px] overflow-auto flex flex-col gap-4 w-full max-w-[500px] mx-auto px-4"
+  *ngIf="treinos.length > 0 && treino == null"
+>
+  <div class="text-center mt-6">
+    <h1 class="text-3xl font-bold text-gray-800">Todos os Treinos</h1>
+  </div>
+
+  <button
+    (click)="limparTreinos()"
+    class="text-blue-600 hover:text-blue-700 hover:underline text-base flex items-center gap-1 mb-2"
+  >
+    <svg
+      class="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M15 19l-7-7 7-7"
+      />
+    </svg>
+    Voltar
+  </button>
+
+  <div
+    *ngFor="let treino of treinos"
+    class="flex justify-between items-center bg-white border border-gray-300 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition"
+  >
+    <div class="flex flex-col w-full">
+      <div class="flex justify-between items-center w-full">
+        <p class="text-lg font-semibold text-gray-800">{{ treino.nome }}</p>
+        <p class="text-[14px] font-medium text-gray-600 mr-4 hidden sm:flex">
+          Vence: {{ treino.datavencimento | date : "dd/MM/yyyy" }}
+        </p>
+      </div>
+      <p
+        class="text-sm font-medium mt-1"
+        [ngClass]="{
+          'text-green-700': dataVencimento(treino.datavencimento),
+          'text-red-500': !dataVencimento(treino.datavencimento)
+        }"
+      >
+        {{
+          dataVencimento(treino.datavencimento) == false
+            ? "Vencido"
+            : "Não Vencido"
+        }}
+      </p>
+    </div>
+    <button
+      *ngIf="usuario != 'aluno'"
+      class="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-1.5 rounded-lg transition mr-1"
+      (click)="deletarTreino(treino.id)"
+    >
+      Deletar
+    </button>
+    <button
+      class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-1.5 rounded-lg transition"
+      (click)="abrirTreino(treino)"
+    >
+      Abrir
+    </button>
+  </div>
+</div>
+
+<app-editar-treino
+  [usuario]="usuario"
+  *ngIf="treino != null"
+  [treino]="treino"
+  (limpar)="limparTreino()"
+></app-editar-treino>

@@ -1,0 +1,101 @@
+<div
+  *ngIf="treinos.length == 0"
+  class="flex flex-col items-center justify-center mx-auto mt-10 text-center w-full max-w-[500px] px-4 space-y-5"
+>
+  <h1 class="text-4xl font-bold text-gray-800">Olá, {{ User }} 👋</h1>
+
+  @if (User == 'Aluno') {
+  <p class="text-lg text-gray-600">Procure o treino pelo seu nome</p>
+  } @else if (User == 'Administrador') {
+  <p class="text-lg text-gray-600">Procure o treino pelo nome do aluno(a)</p>
+  }
+
+  <div class="w-full relative">
+    <input
+      type="text"
+      class="w-full px-5 py-3 border border-gray-300 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-150 text-gray-700"
+      placeholder="Digite o nome do aluno..."
+      (input)="onNomeChange($event)"
+      [value]="nome"
+    />
+    <svg
+      class="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M21 21l-4.35-4.35M17 11A6 6 0 105 11a6 6 0 0012 0z"
+      ></path>
+    </svg>
+  </div>
+
+  @if (User == 'Administrador') {
+  <div class="text-center space-y-1">
+    <p class="text-lg text-gray-600">Não encontrou o aluno?</p>
+    <button
+      class="text-orange-600 hover:underline text-lg font-medium"
+      (click)="criarTreinoAluno()"
+    >
+      Clique aqui para criar um novo treino
+    </button>
+  </div>
+  } @else {
+  <div class="text-center space-y-1">
+    <p class="text-lg text-gray-600">Não encontrou seu nome?</p>
+    <button class="text-orange-600 text-lg font-medium">
+      Entre em contato com o professor
+    </button>
+  </div>
+  }
+</div>
+
+<div
+  class="max-h-[500px] overflow-auto flex flex-col gap-3 w-full max-w-[500px] mx-auto mt-6 px-4"
+  *ngIf="treinos.length == 0"
+>
+  <div
+    *ngFor="let aluna of Alunos"
+    class="flex justify-between items-center bg-white border border-gray-300 px-4 py-3 rounded-xl shadow-sm hover:shadow-md transition"
+  >
+    <p class="text-lg font-semibold text-gray-800">{{ aluna.nome }}</p>
+    <div class="space-x-3">
+      <button
+        class="bg-green-500 hover:bg-green-600 text-white text-sm px-4 py-1 rounded-lg transition"
+        (click)="criarTreinoAlunoCpf(aluna.id)"
+        *ngIf="User == 'Administrador'"
+      >
+        Criar Treino
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-600 text-white text-sm px-4 py-1 rounded-lg transition"
+        (click)="abrirTreinos(aluna.treinos)"
+      >
+        Ver Treinos
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-treinos
+  [treinos]="treinos"
+  (limpar)="limparTreinos()"
+  [usuario]="usuario"
+  (atualizar)="getTreino()"
+></app-treinos>
+
+<app-criar-treino
+  *ngIf="criarTreino"
+  (fechar)="fecharCriarTreinoAluno()"
+></app-criar-treino>
+
+<app-criar-treino-aluno
+  *ngIf="criarTreinoAlunoriarTreino"
+  (fechar)="fecharCriarTreinoAlunoCpf()"
+  [alunoId]="alunoId"
+>
+</app-criar-treino-aluno>

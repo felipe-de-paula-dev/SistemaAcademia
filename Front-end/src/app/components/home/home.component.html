@@ -1,0 +1,62 @@
+<div class="w-full">
+  <div class="bg-black w-full h-16 flex">
+    @if (usuario == `Administrador`) {
+    <div class="h-min w-[90%] m-auto flex justify-between items-center">
+      <img src="/HARDFIT.png" alt="" width="100px" />
+      <div
+        class="flex text-white items-center gap-4"
+        *ngIf="usuario == `Administrador`"
+      >
+        <div
+          class="flex items-center px-1.5 py-0.5 bg-orange-700 rounded-lg hover:text-orange-700 hover:cursor-pointer hover:bg-orange-200/90 transition-all"
+          (click)="addExercicio()"
+        >
+          <lucide-angular
+            [img]="Peso"
+            class="my-icon w-5 h-5 mr-0.5"
+          ></lucide-angular>
+          <h1 class="text-[15px]">Exercícios</h1>
+        </div>
+        <div
+          class="w-10 h-10 bg-orange-700 flex items-center justify-center font-bold text-xl rounded-full"
+        >
+          {{ user?.toUpperCase() }}
+        </div>
+        <button
+          class="bg-red-500/80 text-white font-semibold text-[16px] px-4 py-0.5 rounded-[10px]"
+          (click)="sair()"
+        >
+          Sair
+        </button>
+      </div>
+    </div>
+    } @else {
+    <div class="h-min w-[90%] m-auto flex justify-center items-center">
+      <img src="/HARDFIT.png" alt="" width="100px" />
+      <div class="flex text-white items-center gap-4"></div>
+    </div>
+    }
+  </div>
+  <div class="bg-orange-600 w-full h-1"></div>
+</div>
+
+<div
+  class="absolute bottom-2 left-2 text-orange-600 font-semibold"
+  (click)="abrirLogin()"
+  *ngIf="usuario == 'aluno' && loginUsuario"
+>
+  Você é um administrador? Clique Aqui
+</div>
+
+<app-alunos
+  [usuario]="usuario"
+  *ngIf="!login && !adicionarExercicio"
+  (fecharLogin)="fecharloginUsuario()"
+></app-alunos>
+
+<app-login *ngIf="login" (fecharLogin)="fecharLogin()"></app-login>
+
+<app-gerenciar-exercicios
+  *ngIf="adicionarExercicio"
+  (fechar)="fechartAddExercicio()"
+></app-gerenciar-exercicios>

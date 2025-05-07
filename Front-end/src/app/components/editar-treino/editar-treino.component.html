@@ -1,0 +1,132 @@
+<div *ngIf="treino" class="w-full flex flex-col items-center px-4 py-6">
+  <!-- Botão Voltar -->
+  <button
+    (click)="limparTreino()"
+    class="text-sm text-blue-600 hover:underline self-start mb-4"
+  >
+    ← Voltar
+  </button>
+
+  <!-- Vencimento e Salvar -->
+  <div class="flex flex-wrap items-center justify-center gap-6">
+    <p class="text-xl font-medium">
+      Vencimento:
+      <span class="text-red-500 font-semibold">{{
+        treino.datavencimento
+      }}</span>
+    </p>
+    <button
+      *ngIf="modificar"
+      (click)="atualizarTreino()"
+      class="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg text-sm shadow"
+    >
+      Salvar
+    </button>
+  </div>
+
+  <!-- Botões de dias -->
+  <div *ngIf="!modificar" class="flex flex-wrap gap-3 justify-center mt-4">
+    <button
+      *ngFor="let diaTreinos of treino.diaTreinos; let i = index"
+      (click)="selecionarDia(i)"
+      class="bg-orange-100 transition-all hover:bg-orange-200 text-orange-700 px-2 py-1.5 rounded-lg shadow-sm text-sm"
+    >
+      Treino de {{ diasSemana[i] || "Treino" }}
+    </button>
+  </div>
+
+  <!-- Modo Modificar -->
+  <div
+    *ngIf="modificar"
+    class="flex flex-wrap justify-center gap-6 w-full max-w-6xl"
+  >
+    <div
+      *ngFor="let diaTreinos of treino.diaTreinos; let j = index"
+      class="flex flex-col gap-3 p-6 bg-white rounded-2xl shadow-md w-min items-center"
+    >
+      <h2 class="text-lg font-semibold text-gray-800">
+        {{ diasSemana[j] || "Treino" }}
+      </h2>
+      <div
+        *ngFor="
+          let exercicio of diaTreinos.exercicios;
+          let i = index;
+          trackBy: trackByIndex
+        "
+      >
+        <textarea
+          class="w-[140px] min-h-[60px] resize-none p-2 rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 text-center"
+          [(ngModel)]="treino.diaTreinos[j].exercicios[i]"
+          readonly="true"
+          (click)="editarExercicio(j, i)"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modo Visualização -->
+  <div
+    *ngIf="!modificar"
+    class="flex flex-wrap justify-center gap-6 w-full max-w-6xl"
+  >
+    <div
+      *ngIf="treino.diaTreinos[diaTreino]"
+      class="flex flex-col gap-3 p-6 bg-white rounded-2xl shadow-md w-min items-center"
+    >
+      <h2 class="text-lg font-semibold text-gray-800 mb-2">
+        {{ diasSemana[diaTreino] || "Treino" }}
+      </h2>
+
+      <div
+        *ngFor="
+          let exercicio of treino.diaTreinos[diaTreino].exercicios;
+          let i = index;
+          trackBy: trackByIndex
+        "
+      >
+        <div
+          class="w-[140px] min-h-[60px] resize-none p-2 rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 text-center flex items-center justify-center"
+          (click)="abrirUrl(treino.diaTreinos[diaTreino].exercicios[i])"
+        >
+          {{ treino.diaTreinos[diaTreino].exercicios[i] }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Exercício -->
+<app-exercicio
+  *ngIf="exercicioMudar"
+  (nomeExercicioChange)="nomeExercicio = $event"
+  (fechar)="fecharEditarExercicio()"
+>
+</app-exercicio>
+
+<!-- Modal com Vídeo -->
+<div
+  *ngIf="showModal"
+  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+>
+  <div class="bg-white p-6 rounded-2xl text-center w-full max-w-lg">
+    <h2 class="mb-4 text-xl font-semibold text-gray-800">
+      {{ exercicioNome }}
+    </h2>
+    <div class="mb-4">
+      <iframe
+        class="w-full h-64 rounded-md border"
+        [src]="safeUrl"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <button
+      (click)="voltar()"
+      class="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+    >
+      Voltar
+    </button>
+  </div>
+</div>
