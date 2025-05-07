@@ -42,4 +42,6 @@ export class CriarTreinoComponent {
   fecharModal() {
     this.fechar.emit();
   }
+
+  criarTreino() {}
 }
