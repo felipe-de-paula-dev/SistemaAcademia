@@ -34,4 +34,9 @@ public class AuthController {
     public ResponseEntity<String> verificar(){
         return ResponseEntity.ok("Ok!");
     }
+
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping(){
+        return ResponseEntity.ok("Ping Ok!");
+    }
 }
