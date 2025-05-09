@@ -22,7 +22,7 @@ export class LoginComponent {
 
   login() {
     this.http
-      .post('http://localhost:8080/auth/login', this.loginData, {
+      .post('https://sistemaacademia.onrender.com/auth/login', this.loginData, {
         responseType: 'text',
       })
       .subscribe((data: any) => {

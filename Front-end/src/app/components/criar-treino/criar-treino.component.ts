@@ -25,7 +25,7 @@ export class CriarTreinoComponent {
 
   postTreino(): void {
     this.http
-      .post('http://localhost:8080/api/treino', this.Treino, {
+      .post('https://sistemaacademia.onrender.com/api/treino', this.Treino, {
         responseType: 'text',
       })
       .subscribe({

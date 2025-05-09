@@ -24,7 +24,7 @@ export class ExercicioComponent {
 
   ngOnInit(): void {
     this.http
-      .get('http://localhost:8080/api/exercicios')
+      .get('https://sistemaacademia.onrender.com/api/exercicios')
       .subscribe((data: any) => {
         this.exercicios = data;
       });
@@ -42,13 +42,15 @@ export class ExercicioComponent {
   onInputChange(event: any) {
     if (this.filtro != '') {
       this.http
-        .get(`http://localhost:8080/api/exercicios/${this.filtro}`)
+        .get(
+          `https://sistemaacademia.onrender.com/api/exercicios/${this.filtro}`
+        )
         .subscribe((data: any) => {
           this.exercicios = data;
         });
     } else {
       this.http
-        .get('http://localhost:8080/api/exercicios')
+        .get('https://sistemaacademia.onrender.com/api/exercicios')
         .subscribe((data: any) => {
           this.exercicios = data;
         });

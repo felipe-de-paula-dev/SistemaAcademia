@@ -55,6 +55,7 @@ export class EditarTreinoComponent {
   modificar = false;
   diaTreino = 0;
   casaExercicio = 0;
+  mudarDia = true;
 
   diasSemana: string[] = [
     'Segunda',
@@ -66,8 +67,13 @@ export class EditarTreinoComponent {
     'Domingo',
   ];
 
+  mudarDiaTrue() {
+    this.mudarDia = true;
+  }
+
   selecionarDia(dia: number) {
     this.diaTreino = dia;
+    this.mudarDia = false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -86,7 +92,7 @@ export class EditarTreinoComponent {
 
   atualizarTreino() {
     this.http
-      .put('http://localhost:8080/api/treino', this.treino, {
+      .put('https://sistemaacademia.onrender.com/api/treino', this.treino, {
         responseType: 'text',
       })
       .subscribe({
@@ -107,7 +113,7 @@ export class EditarTreinoComponent {
 
   abrirUrl(nome: string) {
     this.http
-      .get(`http://localhost:8080/api/exercicios/${nome}`)
+      .get(`https://sistemaacademia.onrender.com/api/exercicios/${nome}`)
       .subscribe((res: any) => {
         const url = typeof res === 'string' ? res[0] : res[0]?.urlvideo;
 

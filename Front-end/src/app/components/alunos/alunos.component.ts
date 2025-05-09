@@ -82,7 +82,7 @@ export class AlunosComponent {
     this.treinos = [];
   }
 
-  private apiUrl = 'http://localhost:8080/api/aluno';
+  private apiUrl = 'https://sistemaacademia.onrender.com/api/aluno';
 
   nome: string = '';
 
@@ -96,7 +96,7 @@ export class AlunosComponent {
 
   atualizarTreino(treino: any): void {
     this.http
-      .put('http://localhost:8080/api/treino', treino, {
+      .put('https://sistemaacademia.onrender.com/api/treino', treino, {
         responseType: 'text',
       })
       .subscribe({

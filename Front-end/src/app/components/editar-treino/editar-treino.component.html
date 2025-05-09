@@ -25,14 +25,36 @@
   </div>
 
   <!-- Botões de dias -->
-  <div *ngIf="!modificar" class="flex flex-wrap gap-3 justify-center mt-4">
+
+  <div *ngIf="!modificar" class="mt-4 px-2">
     <button
-      *ngFor="let diaTreinos of treino.diaTreinos; let i = index"
-      (click)="selecionarDia(i)"
-      class="bg-orange-100 transition-all hover:bg-orange-200 text-orange-700 px-2 py-1.5 rounded-lg shadow-sm text-sm"
+      class="bg-orange-200 text-orange-700 px-4 py-2 rounded-md"
+      (click)="mudarDiaTrue()"
     >
-      Treino de {{ diasSemana[i] || "Treino" }}
+      Trocar Dia
     </button>
+  </div>
+
+  <div
+    *ngIf="!modificar && mudarDia"
+    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+  >
+    <div
+      class="bg-white rounded-2xl shadow-lg p-6 w-[90%] max-w-md text-center"
+    >
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">
+        Escolha um dia para visualizar o treino
+      </h2>
+      <div class="flex flex-wrap justify-center gap-3">
+        <button
+          *ngFor="let diaTreinos of treino.diaTreinos; let i = index"
+          (click)="selecionarDia(i)"
+          class="bg-orange-100 hover:bg-orange-200 text-orange-700 px-5 py-2 rounded-md shadow text-sm font-medium"
+        >
+          {{ diasSemana[i] || "Treino" }}
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Modo Modificar -->
@@ -85,7 +107,7 @@
         "
       >
         <div
-          class="w-[140px] min-h-[60px] resize-none p-2 rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 text-center flex items-center justify-center"
+          class="w-[140px] min-h-[60px] resize-none p-2 rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 text-center flex items-center justify-center hover:bg-orange-100 transition-all hover:cursor-pointer hover:scale-[1.03] transform hover:text-orange-600"
           (click)="abrirUrl(treino.diaTreinos[diaTreino].exercicios[i])"
         >
           {{ treino.diaTreinos[diaTreino].exercicios[i] }}
@@ -108,11 +130,11 @@
   *ngIf="showModal"
   class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
 >
-  <div class="bg-white p-6 rounded-2xl text-center w-full max-w-lg">
+  <div class="bg-white p-2 py-4 rounded-2xl text-center w-full max-w-lg">
     <h2 class="mb-4 text-xl font-semibold text-gray-800">
       {{ exercicioNome }}
     </h2>
-    <div class="mb-4">
+    <div class="mb-1">
       <iframe
         class="w-full h-64 rounded-md border"
         [src]="safeUrl"
@@ -124,7 +146,7 @@
     </div>
     <button
       (click)="voltar()"
-      class="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+      class="mt-2 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
     >
       Voltar
     </button>

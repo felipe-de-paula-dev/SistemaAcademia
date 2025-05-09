@@ -44,10 +44,13 @@ export class HomeComponent {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
-    return this.http.get<string>('http://localhost:8080/auth/verificar', {
-      responseType: 'text' as 'json',
-      headers,
-    });
+    return this.http.get<string>(
+      'https://sistemaacademia.onrender.com/auth/verificar',
+      {
+        responseType: 'text' as 'json',
+        headers,
+      }
+    );
   }
 
   user: string | null = '';

@@ -26,9 +26,13 @@ export class CriarTreinoAlunoComponent {
   postTreino(): void {
     this.Treino.alunoId = this.alunoId;
     this.http
-      .post('http://localhost:8080/api/treino/cpf', this.Treino, {
-        responseType: 'text',
-      })
+      .post(
+        'https://sistemaacademia.onrender.com/api/treino/cpf',
+        this.Treino,
+        {
+          responseType: 'text',
+        }
+      )
       .subscribe({
         next: (res) => {
           this.swal.success(res);

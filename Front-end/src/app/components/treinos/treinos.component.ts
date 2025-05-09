@@ -33,14 +33,20 @@ export class TreinosComponent {
     this.treino = null;
   }
 
-  abrirTreino(treino: any) {
-    if (this.usuario == 'aluno') {
-      const response = window.prompt('Digite Seu Cpf: ');
-      if (response == treino.cpfaluno) {
+  async abrirTreino(treino: any) {
+    if (this.usuario === 'aluno') {
+      const confirmado = await this.swal.confirmarCpf(
+        'Confirme que é você!',
+        treino.cpfaluno
+      );
+
+      if (confirmado) {
         this.treino = treino;
       }
+
       return;
     }
+
     this.treino = treino;
   }
 
@@ -50,7 +56,7 @@ export class TreinosComponent {
 
   deletarTreino(id: string) {
     this.http
-      .delete(`http://localhost:8080/api/treino/${id}`, {
+      .delete(`https://sistemaacademia.onrender.com/api/treino/${id}`, {
         responseType: 'text',
       })
       .subscribe({
