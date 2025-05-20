@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
@@ -20,6 +21,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public AuthController(AuthenticationManager authenticationManager, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
@@ -40,20 +44,17 @@ public class AuthController {
 
     @PostMapping("/registrar")
     public ResponseEntity<String> registrar(@RequestBody RegistroDto dto){
-        try{
-            if(this.userRepository.findByLogin(dto.login()) != null){
-                return ResponseEntity.badRequest().build();
+        try {
+            if (this.userRepository.findByLogin(dto.login()).isPresent()) {
+                return ResponseEntity.badRequest().body("Login já existente.");
             }
 
-            String newSenha = new BCryptPasswordEncoder().encode(dto.password());
+            String senhaCriptografada = passwordEncoder.encode(dto.password());
+            User novoUsuario = new User(dto.login(), senhaCriptografada);
+            this.userRepository.save(novoUsuario);
 
-
-            User newUser = new User(dto.login(), newSenha);
-
-            this.userRepository.save(newUser);
-
-            return ResponseEntity.ok("Usuario Criado Com Sucesso");
-        } catch (Exception e) {
+            return ResponseEntity.ok("Usuário criado com sucesso!");
+        }  catch (Exception e) {
             return ResponseEntity.status(400).body("Usuario não foi criado com sucesso " + e);
         }
     }

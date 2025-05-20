@@ -15,7 +15,7 @@ export class CriarTreinoComponent {
 
   @Output() fechar = new EventEmitter<void>();
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://sistemaacademia.onrender.com';
 
   Treino = {
     nomeAluno: '',

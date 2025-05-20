@@ -34,7 +34,7 @@ export class HomeComponent {
 
   loginUsuario = true;
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://sistemaacademia.onrender.com';
 
   fecharloginUsuario() {
     this.loginUsuario = false;
@@ -46,13 +46,10 @@ export class HomeComponent {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
     });
-    return this.http.get<string>(
-      this.apiUrl + '/auth/verificar',
-      {
-        responseType: 'text' as 'json',
-        headers,
-      }
-    );
+    return this.http.get<string>(this.apiUrl + '/auth/verificar', {
+      responseType: 'text' as 'json',
+      headers,
+    });
   }
 
   user: string | null = '';

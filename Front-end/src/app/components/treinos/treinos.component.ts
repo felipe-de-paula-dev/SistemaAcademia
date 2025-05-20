@@ -24,7 +24,7 @@ export class TreinosComponent {
   @Output() limpar = new EventEmitter<void>();
   @Output() atualizar = new EventEmitter<void>();
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://sistemaacademia.onrender.com';
 
   treino: any = null;
 

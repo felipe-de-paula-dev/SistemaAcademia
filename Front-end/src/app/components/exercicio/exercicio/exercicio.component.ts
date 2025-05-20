@@ -16,7 +16,7 @@ export class ExercicioComponent {
   @Output() fechar = new EventEmitter<void>();
   @Output() nomeExercicioChange = new EventEmitter<string>();
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://sistemaacademia.onrender.com';
 
   exercicios: any[] = [];
 
@@ -25,11 +25,9 @@ export class ExercicioComponent {
   exercicioSalvo: any;
 
   ngOnInit(): void {
-    this.http
-      .get(this.apiUrl + '/api/exercicios')
-      .subscribe((data: any) => {
-        this.exercicios = data;
-      });
+    this.http.get(this.apiUrl + '/api/exercicios').subscribe((data: any) => {
+      this.exercicios = data;
+    });
   }
 
   fecharModel() {
@@ -44,18 +42,14 @@ export class ExercicioComponent {
   onInputChange(event: any) {
     if (this.filtro != '') {
       this.http
-        .get(
-          this.apiUrl + `/api/exercicios/${this.filtro}`
-        )
+        .get(this.apiUrl + `/api/exercicios/${this.filtro}`)
         .subscribe((data: any) => {
           this.exercicios = data;
         });
     } else {
-      this.http
-        .get(this.apiUrl + '/api/exercicios')
-        .subscribe((data: any) => {
-          this.exercicios = data;
-        });
+      this.http.get(this.apiUrl + '/api/exercicios').subscribe((data: any) => {
+        this.exercicios = data;
+      });
     }
   }
 }

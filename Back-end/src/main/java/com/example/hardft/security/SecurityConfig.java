@@ -31,13 +31,14 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/verificar").authenticated()
+                        .requestMatchers(   "/auth/registrar").authenticated()
                         .requestMatchers("/auth/login").permitAll()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(request -> {
                     var source = new org.springframework.web.cors.CorsConfiguration();
-                    source.addAllowedOrigin("http://localhost:4200");
+                    source.addAllowedOrigin("https://sistemaacademia-web.onrender.com/");
                     source.addAllowedMethod("*");
                     source.addAllowedHeader("*");
                     source.setAllowCredentials(true);
@@ -57,4 +58,6 @@ public class SecurityConfig implements WebMvcConfigurer {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }

@@ -26,7 +26,7 @@ export class EditarTreinoComponent {
     private swal: SwalService
   ) {}
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://sistemaacademia.onrender.com';
 
   @Input() treino: any;
   @Input() usuario: string = '';

@@ -83,7 +83,7 @@ export class AlunosComponent {
   }
 
   //private apiUrl = 'https://sistemaacademia.onrender.com/api/aluno';
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://sistemaacademia.onrender.com';
 
   nome: string = '';
 
