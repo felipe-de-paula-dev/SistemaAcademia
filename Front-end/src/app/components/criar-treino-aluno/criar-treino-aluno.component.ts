@@ -14,6 +14,8 @@ export class CriarTreinoAlunoComponent {
 
   @Output() fechar = new EventEmitter<void>();
 
+  private apiUrl = 'http://localhost:8080';
+
   @Input() alunoId!: string;
 
   Treino = {
@@ -27,7 +29,7 @@ export class CriarTreinoAlunoComponent {
     this.Treino.alunoId = this.alunoId;
     this.http
       .post(
-        'https://sistemaacademia.onrender.com/api/treino/cpf',
+        this.apiUrl + '/api/treino/cpf',
         this.Treino,
         {
           responseType: 'text',

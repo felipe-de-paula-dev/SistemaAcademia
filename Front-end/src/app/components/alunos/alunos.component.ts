@@ -82,21 +82,22 @@ export class AlunosComponent {
     this.treinos = [];
   }
 
-  private apiUrl = 'https://sistemaacademia.onrender.com/api/aluno';
+  //private apiUrl = 'https://sistemaacademia.onrender.com/api/aluno';
+  private apiUrl = 'http://localhost:8080';
 
   nome: string = '';
 
   getTreino(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.apiUrl + '/api/aluno');
   }
 
   getTreinoNome(nome: string): Observable<any> {
-    return this.http.get(this.apiUrl + `/buscar?nome=${nome}`);
+    return this.http.get(this.apiUrl + `/api/aluno/buscar?nome=${nome}`);
   }
 
   atualizarTreino(treino: any): void {
     this.http
-      .put('https://sistemaacademia.onrender.com/api/treino', treino, {
+      .put(this.apiUrl + '/api/treino', treino, {
         responseType: 'text',
       })
       .subscribe({

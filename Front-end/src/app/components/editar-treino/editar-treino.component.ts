@@ -26,6 +26,8 @@ export class EditarTreinoComponent {
     private swal: SwalService
   ) {}
 
+  private apiUrl = 'http://localhost:8080';
+
   @Input() treino: any;
   @Input() usuario: string = '';
   @Input() nomeExercicio: string = '';
@@ -92,7 +94,7 @@ export class EditarTreinoComponent {
 
   atualizarTreino() {
     this.http
-      .put('https://sistemaacademia.onrender.com/api/treino', this.treino, {
+      .put(this.apiUrl + '/api/treino', this.treino, {
         responseType: 'text',
       })
       .subscribe({
@@ -113,7 +115,7 @@ export class EditarTreinoComponent {
 
   abrirUrl(nome: string) {
     this.http
-      .get(`https://sistemaacademia.onrender.com/api/exercicios/${nome}`)
+      .get(this.apiUrl + `/api/exercicios/${nome}`)
       .subscribe((res: any) => {
         const url = typeof res === 'string' ? res[0] : res[0]?.urlvideo;
 

@@ -15,6 +15,8 @@ export class CriarTreinoComponent {
 
   @Output() fechar = new EventEmitter<void>();
 
+  private apiUrl = 'http://localhost:8080';
+
   Treino = {
     nomeAluno: '',
     nomeTreino: '',
@@ -25,7 +27,7 @@ export class CriarTreinoComponent {
 
   postTreino(): void {
     this.http
-      .post('https://sistemaacademia.onrender.com/api/treino', this.Treino, {
+      .post(this.apiUrl + '/api/treino', this.Treino, {
         responseType: 'text',
       })
       .subscribe({

@@ -63,7 +63,7 @@ export class SwalService {
         return true;
       },
     }).then((result) => {
-      return result.isConfirmed && result.value === confirmWord;
+      return result.value;
     });
   }
 

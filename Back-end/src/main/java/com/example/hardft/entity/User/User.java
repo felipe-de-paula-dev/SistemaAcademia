@@ -19,6 +19,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User  {
+
+    public User(String login, String password){
+        this.login = login;
+        this.password = password;
+    }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

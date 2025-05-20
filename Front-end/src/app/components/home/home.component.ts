@@ -34,6 +34,8 @@ export class HomeComponent {
 
   loginUsuario = true;
 
+  private apiUrl = 'http://localhost:8080';
+
   fecharloginUsuario() {
     this.loginUsuario = false;
   }
@@ -45,7 +47,7 @@ export class HomeComponent {
       Authorization: `Bearer ${this.token}`,
     });
     return this.http.get<string>(
-      'https://sistemaacademia.onrender.com/auth/verificar',
+      this.apiUrl + '/auth/verificar',
       {
         responseType: 'text' as 'json',
         headers,

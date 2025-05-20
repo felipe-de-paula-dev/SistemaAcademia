@@ -15,6 +15,8 @@ export class LoginComponent {
 
   @Output() fecharLogin = new EventEmitter<void>();
 
+  private apiUrl = "http://localhost:8080";
+
   loginData = {
     login: '',
     password: '',
@@ -22,7 +24,7 @@ export class LoginComponent {
 
   login() {
     this.http
-      .post('https://sistemaacademia.onrender.com/auth/login', this.loginData, {
+      .post(this.apiUrl + '/auth/login', this.loginData, {
         responseType: 'text',
       })
       .subscribe((data: any) => {

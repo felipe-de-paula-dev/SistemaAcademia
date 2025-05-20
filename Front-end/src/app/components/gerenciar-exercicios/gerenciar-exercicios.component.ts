@@ -17,6 +17,8 @@ export class GerenciarExerciciosComponent {
 
   @Output() fechar = new EventEmitter<void>();
 
+  private apiUrl = 'http://localhost:8080';
+
   fecharModel() {
     this.fechar.emit();
   }
@@ -27,7 +29,7 @@ export class GerenciarExerciciosComponent {
 
   getExercicios() {
     this.http
-      .get('https://sistemaacademia.onrender.com/api/exercicios')
+      .get(this.apiUrl + '/api/exercicios')
       .subscribe((data: any) => {
         this.treinos = data;
       });
@@ -40,7 +42,7 @@ export class GerenciarExerciciosComponent {
 
   removerTreino(id: string): void {
     this.http
-      .delete(`https://sistemaacademia.onrender.com/api/exercicios/${id}`, {
+      .delete(this.apiUrl + `/api/exercicios/${id}`, {
         responseType: 'text',
       })
       .subscribe({
@@ -66,7 +68,7 @@ export class GerenciarExerciciosComponent {
     };
 
     this.http
-      .post('https://sistemaacademia.onrender.com/api/exercicios', exercicio, {
+      .post(this.apiUrl + '/api/exercicios', exercicio, {
         responseType: 'text',
       })
       .subscribe({

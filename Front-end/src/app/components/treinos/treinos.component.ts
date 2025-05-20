@@ -24,6 +24,8 @@ export class TreinosComponent {
   @Output() limpar = new EventEmitter<void>();
   @Output() atualizar = new EventEmitter<void>();
 
+  private apiUrl = 'http://localhost:8080';
+
   treino: any = null;
 
   limparTreinos() {
@@ -54,18 +56,24 @@ export class TreinosComponent {
     return this.VerificarVencimento.verificarVencimento(data);
   }
 
-  deletarTreino(id: string) {
-    this.http
-      .delete(`https://sistemaacademia.onrender.com/api/treino/${id}`, {
-        responseType: 'text',
-      })
-      .subscribe({
-        next: (res) => {
-          this.swal.success(res);
-          this.atualizar.emit();
-          window.location.reload();
-        },
-        error: (err) => this.swal.error(err),
-      });
+  async deletarTreino(id: string) {
+    const response = await this.swal.confirmarComOTexto(
+      'Você Tem Certeza?',
+      'CONFIRMAR'
+    );
+    if (response) {
+      this.http
+        .delete(this.apiUrl + `/api/treino/${id}`, {
+          responseType: 'text',
+        })
+        .subscribe({
+          next: (res) => {
+            this.swal.success(res);
+            this.atualizar.emit();
+            window.location.reload();
+          },
+          error: (err) => this.swal.error(err),
+        });
+    }
   }
 }
